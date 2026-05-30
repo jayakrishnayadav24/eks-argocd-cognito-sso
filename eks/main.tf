@@ -89,66 +89,7 @@ resource "aws_eks_addon" "kube_proxy" {
 
   depends_on = [module.eks_nodes]
 }
-#for 1.34
-# resource "aws_eks_addon" "vpc_cni" {
-#   cluster_name                = module.eks_cluster.cluster_id
-#   addon_name                  = "vpc-cni"
-#   addon_version               = "v1.18.1-eksbuild.1"
-#   resolve_conflicts_on_create = "OVERWRITE"
 
-#   depends_on = [module.eks_nodes]
-# }
-
-# resource "aws_eks_addon" "coredns" {
-#   cluster_name                = module.eks_cluster.cluster_id
-#   addon_name                  = "coredns"
-#   addon_version               = "v1.11.1-eksbuild.8"
-#   resolve_conflicts_on_create = "OVERWRITE"
-
-#   depends_on = [module.eks_nodes]
-# }
-
-# resource "aws_eks_addon" "kube_proxy" {
-#   cluster_name                = module.eks_cluster.cluster_id
-#   addon_name                  = "kube-proxy"
-#   addon_version               = "v1.33.5-eksbuild.2"
-#   resolve_conflicts_on_create = "OVERWRITE"
-
-#   depends_on = [module.eks_nodes]
-# }
-
-# module "istio_base" {
-#   source = "../modules/istio-base"
-
-#   release_name     = var.istio_base_release_name
-#   namespace        = var.istio_namespace
-#   chart_version    = var.istio_version
-#   cluster_endpoint = module.eks_cluster.cluster_endpoint
-
-#   depends_on = [module.eks_nodes]
-# }
-
-# module "istiod" {
-#   source = "../modules/istiod"
-
-#   release_name       = var.istiod_release_name
-#   namespace          = var.istio_namespace
-#   chart_version      = var.istio_version
-#   istio_base_release = module.istio_base
-
-#   depends_on = [module.istio_base]
-# }
-
-# module "istio_gateway" {
-#   source = "../modules/istio-gateway"
-
-#   release_name   = var.istio_gateway_release_name
-#   namespace      = var.istio_namespace
-#   chart_version  = var.istio_version
-#   istiod_release = module.istiod
-
-#   depends_on = [module.istiod]
-# }
 
 module "aws_load_balancer_controller" {
   source = "../modules/aws-load-balancer-controller"
@@ -163,89 +104,7 @@ module "aws_load_balancer_controller" {
   depends_on = [module.eks_nodes]
 }
 
-# module "istio_manifests" {
-#   source = "../modules/istio-manifests"
 
-#   namespace           = var.app_namespace
-#   app_image           = var.app_image
-#   app_replicas        = var.app_replicas
-#   app_hostname        = var.app_hostname
-#   acm_certificate_arn = var.acm_certificate_arn
-#   company_ip          = var.company_ip
-
-#   # Explicit dependency on LB controller ensures the Ingress (ALB) is destroyed
-#   # before the controller is removed, allowing AWS to clean up the ALB properly.
-#   depends_on = [module.istio_gateway, module.aws_load_balancer_controller]
-# }
-
-# module "coraza_waf" {
-#   source = "../modules/coraza-waf"
-
-#   waf_replicas            = 2
-#   allowed_countries       = var.allowed_countries
-#   maxmind_license_key     = var.maxmind_license_key
-#   acm_certificate_arn     = var.acm_certificate_arn
-#   acm_wildcard_arn        = var.acm_wildcard_arn
-#   paranoia_level          = 2
-#   ip_restricted_hostnames = var.ip_restricted_hostnames
-#   company_ip              = var.company_ip
-
-#   depends_on = [module.aws_load_balancer_controller]
-#   # depends_on = [module.eks_nodes]
-
-# }
-
-# module "coraza_waf_2" {
-#   source = "../modules/coraza-waf-2"
-
-#   waf_replicas        = 2
-#   acm_certificate_arn = var.acm_certificate_arn
-#   acm_wildcard_arn    = var.acm_wildcard_arn
-#   paranoia_level      = 2
-#   grafana_hostname    = var.grafana_hostname
-#   backend_hostname    = var.backend_hostname
-#   company_ip          = var.company_ip
-#   backend_api_key     = var.backend_api_key
-#   allowed_countries   = var.allowed_countries
-#   maxmind_license_key = var.maxmind_license_key
-
-#   depends_on = [module.aws_load_balancer_controller]
-#   # depends_on = [module.eks_nodes]
-# }
-
-# module "nginx_waf" {
-#   source = "../modules/nginx-waf"
-
-#   namespace           = var.app_namespace
-#   app_image           = var.app_image
-#   app_replicas        = var.app_replicas
-#   app_hostname        = var.app_hostname
-#   app2_hostname       = var.app2_hostname
-#   nginx_chart_version = var.nginx_chart_version
-#   grafana_hostname    = var.grafana_hostname
-#   backend_hostname    = var.backend_hostname
-
-# }
-
-# module "nginx_waf" {
-#   source = "../modules/nginx-waf"
-
-#   namespace           = var.app_namespace
-#   app_image           = var.app_image
-#   app_replicas        = var.app_replicas
-#   app_hostname        = var.app_hostname
-#   app2_hostname       = var.app2_hostname
-#   acm_certificate_arn = var.acm_certificate_arn
-#   acm_wildcard_arn    = var.acm_wildcard_arn
-#   company_ip          = var.company_ip
-#   allowed_cidrs       = var.allowed_cidrs
-#   nginx_chart_version = var.nginx_chart_version
-#   grafana_hostname    = var.grafana_hostname
-#   backend_hostname    = var.backend_hostname
-#   backend_api_key     = var.backend_api_key
-#   your_ip_address     = var.your_ip_address
-
-# }
 # Get current AWS identity
 data "aws_caller_identity" "current" {}
 

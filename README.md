@@ -128,7 +128,7 @@ scopes:         "[cognito:groups, email]"
 
 ## Blog Post
 
-Full writeup with explanations: [Running Two ArgoCD Instances on EKS with Cognito SSO]([https://dev.to/aws-builders/what-if-you-need-two-argocd-instances-in-one-eks-cluster-57id])
+Full writeup with explanations: [What If You Need Two ArgoCD Instances in One EKS Cluster?](https://dev.to/jayakrishnayadav24/what-if-you-need-two-argocd-instances-in-one-eks-cluster-57id)
 
 ## License
 

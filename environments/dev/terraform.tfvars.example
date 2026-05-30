@@ -1,0 +1,68 @@
+aws_region  = "us-east-1"
+aws_profile = "default"
+
+cluster_name    = "eks-dev"
+cluster_version = "1.35"
+
+vpc_name = "eks-dev-vpc"
+vpc_cidr = "10.0.0.0/16"
+
+availability_zones = [
+  "us-east-1a",
+  "us-east-1b"
+]
+
+private_subnet_cidrs = [
+  "10.0.0.0/19",
+  "10.0.32.0/19"
+]
+
+public_subnet_cidrs = [
+  "10.0.64.0/19",
+  "10.0.96.0/19"
+]
+
+node_group_name = "dev-private-nodes"
+instance_types  = ["t3a.medium", "t3a.large"]
+desired_size    = 3
+max_size        = 4
+min_size        = 2
+
+node_labels = {
+  role        = "general"
+  environment = "dev"
+}
+
+istio_version                        = "1.17.1"
+aws_load_balancer_controller_version = "1.6.2"
+
+s3_csi_role_arn     = "arn:aws:iam::123456789012:role/AmazonEKS_S3_CSI_DriverRole"
+app_hostname        = "app.example.com"
+app2_hostname       = "app2.example.com"
+ip_restricted_hostnames = "app2.example.com"
+acm_certificate_arn = "arn:aws:acm:us-east-1:123456789012:certificate/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+acm_wildcard_arn    = "arn:aws:acm:us-east-1:123456789012:certificate/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+company_ip          = "1.2.3.4/32"
+allowed_cidrs       = ""
+nginx_chart_version = "1.2.1"
+app_namespace       = "production"
+app_replicas        = 1
+
+# Coraza WAF settings
+allowed_countries   = "IN,US,GB"
+maxmind_license_key = ""
+
+# Advanced WAF settings
+grafana_hostname    = "grafana.example.com"
+backend_hostname    = "backend.example.com"
+your_ip_address     = "1.2.3.4"
+backend_api_key     = "change-this-in-production"
+
+# ArgoCD settings
+argocd_hostname         = "argocd.example.com"
+argocd_managed_hostname = "argocd2.example.com"
+enable_managed_argocd   = true
+cognito_domain_prefix   = "your-unique-prefix"
+argocd_admin_email      = "admin@example.com"
+argocd_admin_password   = "YourSecurePass1"
+argocd_chart_version    = "7.8.13"

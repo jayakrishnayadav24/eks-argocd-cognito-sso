@@ -36,6 +36,8 @@ Both ←── OIDC ──→ Cognito User Pool (ArgoCDAdmins group → role:adm
 ### ArgoCD Dashboard After SSO Login
 ![Dashboard](https://jaya-devto-blog-assets.s3.us-east-1.amazonaws.com/argocd-cognito-sso/argocd-dashboard-logged-in.png)
 
+![Dashboard](https://jaya-devto-blog-assets.s3.us-east-1.amazonaws.com/argocd-cognito-sso/argocd-dashboard-logged-in2.png)
+
 ### ALB Listener Rules (Host-Based Routing)
 ![ALB Rules](https://jaya-devto-blog-assets.s3.us-east-1.amazonaws.com/argocd-cognito-sso/alb-listener-rules.png)
 
